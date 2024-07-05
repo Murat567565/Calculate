@@ -1,20 +1,34 @@
-let display = document.querySelectorAll(".display");
-let buttons = Array.from(document.querySelectorAll(".button"));
-buttons.map((button) => {
-    button.addEventListener("click", (e) => {
-        switch (e.target.innerText) {
-            case "AC":
-                display.innerText = "0";
-                break;
-            case "=":
-                display.innerText = eval(display.innerText);
-                break;
-            default:
-                if (display.innerText === "0") {
-                    display.innerText = e.target.innerText;
-                } else {
-                    display.innerText += e.target.innerText;
-                }
-        }
-    });
-});
+function calc(exp) {
+    return +(exp.toFixed(2));
+}
+window.onload = () => {
+    let displayEl = document.querySelector(".display");
+    let buttonEls = Array.from(document.querySelectorAll(".button"));
+
+    buttonEls.forEach((buttonEl) => {
+        buttonEl.addEventListener("click", (e) => {
+            const btnText = e.target.innerText;
+            const dispText = displayEl.innerText;
+            switch (btnText) {
+                case "AC":
+                    displayEl.innerText = "0";
+                    break;
+                case "=":
+                    displayEl.innerText = calc(eval(dispText));
+                    break;
+                case "0":
+                    if (dispText === "0") {} else {
+                        displayEl.innerText = dispText + '0';
+                    }
+                    break;
+                default:
+                    if (+dispText === 0) {
+                        displayEl.innerText = btnText;
+                    } else {
+                        displayEl.innerText += btnText;
+                    }
+
+            }
+        });
+    })
+}
